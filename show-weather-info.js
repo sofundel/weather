@@ -9,7 +9,7 @@ async function showWeatherInfo(cityName) {
     const weatherInfo = await getResponseFromURL(cityName, SERVER.SERVER_URL);
 
     if (!weatherInfo) {
-        return false;
+        return;
     };
 
     const {
