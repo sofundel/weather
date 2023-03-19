@@ -4,7 +4,7 @@ import { NOW_TAB, ADDED_LOCATIONS } from './constants-html-structure.js';
 import { showWeatherInfo } from './show-weather-info.js'
 import { showForecastInfo } from './show-forecast-info.js';
 
-function render(list, cityName) {
+async function render(list, cityName) {
     const deletedElementsFromAddedLocations = document.querySelectorAll('.weather-info__added-locations li');
     const deletedElementsFromForecast = document.querySelectorAll('.weather-info__forecast-tab-info li');
 
@@ -15,8 +15,12 @@ function render(list, cityName) {
         createHTLMStructureForAddedLocation(list, item);
     }
 
-    showWeatherInfo(cityName);
-    showForecastInfo(cityName);
+    if (await showWeatherInfo(cityName) === false) {
+        return;
+    } else {
+        showWeatherInfo(cityName)
+        showForecastInfo(cityName);
+    }
 }
 
 function addToAddedLocations(list, cityName) {
